@@ -9,13 +9,16 @@ Types::MutationType = GraphQL::ObjectType.define do
     }
   end
   
-  field :createAuthor, Types::AuthorType do
-    description "Create Author"
-    argument :first_name, types.String
-    argument :last_name, types.String
-    argument :dob, types.String
-    resolve ->(obj,args,ctx) do
-      Author.create(args.to_h)
-    end
-  end
+  # field :createAuthor, Types::AuthorType do
+  #   description "Create Author"
+  #   argument :first_name, types.String
+  #   argument :last_name, types.String
+  #   argument :dob, types.String
+  #   resolve ->(obj,args,ctx) do
+  #     Author.create(args.to_h)
+  #   end
+  # end
+  
+  field :createAuthor, function: Mutations::CreateAuthor.new
+  field :updateAuthor, function: Mutations::UpdateAuthor.new
 end
